@@ -52,13 +52,19 @@ const Carousel = ({ showCarrusel = false, datos }) => {
 	}
 
 
-	console.log('esto es litcard')
-	const listCard = dataApp.values.map((dato) =>
+	console.log('esto es litcard' + dataApp.values.length)
+	const listCard = dataApp.values.length === 0?
+		<section className='main'>
+			<p className='main__title'>
+				No se encontraron resultados
+			</p>
+		</section>:
+		dataApp.values.map((dato) =>
 
-		<Card imageurl={dato.urlImagen}
-			messaje={dato.animeId} title={dato.animeTitle}
-		/>
-	)
+			<Card imageurl={dato.urlImagen}
+				messaje={dato.recommendationMessage} title={dato.animeTitle}
+			/>
+		)
 
 
 	if (showCarrusel === false) {

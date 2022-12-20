@@ -20,34 +20,57 @@ const Carousel2 = ({ showCarrusel = false, datos }) => {
 
 	const { dataApp } = useContext(DataContext);
     
-    const listCard = dataApp.values.map((dato) =>
-        <SwiperSlide className="carrousel-item1">
-            <Card1 imageurl={dato.urlImagen}
-                messaje={dato.animeId} title={dato.animeTitle}
-            />
-        </SwiperSlide>
-	)
-  return (
-    <section className="carrousel">
-        <Swiper
-            slidesPerView={5}
-            spaceBetween={8}
-            slidesPerGroup={5}
-            loop={true}
-            loopFillGroupWithBlank={true}
-            pagination={{
-            clickable: true,
-            }}
-            navigation={true}
-            modules={[Pagination, Navigation]}
-            className="mySwiper carrousel__container"
-      >
-            <div ref={showCard}>
-                {listCard}
-            </div>
-        </Swiper>
-    </section>
-  );
+    const listCard = dataApp.values.length ==0?
+        <section className='main'>
+            <p className='main__title'>
+                No se encontraron resultados
+            </p>
+        </section>:
+        dataApp.values.map((dato) =>
+            <SwiperSlide className="carrousel-item1">
+                <Card1 imageurl={dato.urlImagen}
+                    messaje={dato.recommendationMessage} title={dato.animeTitle}
+                />
+            </SwiperSlide>
+        )
+
+    if (showCarrusel) {
+        return (
+            <section className="carrousel">
+                <Swiper
+                    slidesPerView={5}
+                    spaceBetween={8}
+                    slidesPerGroup={5}
+                    loop={true}
+                    loopFillGroupWithBlank={true}
+                    pagination={{
+                    clickable: true,
+                    }}
+                    navigation={true}
+                    modules={[Pagination, Navigation]}
+                    className="mySwiper carrousel__container"
+              >
+                    <div ref={showCard}>
+                        {listCard}
+                    </div>
+                </Swiper>
+            </section>
+        );
+    } else {
+        return (
+			<>
+				<section className="carrousel">
+					<div className="carrousel__container" ref={showCard}>
+
+					</div>
+					<div className="controles" >
+
+					</div>
+				</section>
+			</>
+		)
+    }
+  
 };
 
 export {Carousel2};
